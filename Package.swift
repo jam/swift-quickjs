@@ -21,7 +21,6 @@ let package = Package(
     targets: [
         .target(
             name: "CQuickJS",
-            path: "Sources/CQuickJS",
             publicHeadersPath: "."
         ),
         .target(
@@ -31,8 +30,7 @@ let package = Package(
         ),
         .testTarget(
             name: "CQuickJSTests",
-            dependencies: ["CQuickJS"],
-            path: "Tests/CQuickJSTests"
+            dependencies: ["CQuickJS"]
         ),
         .testTarget(
             name: "QuickJSKitTests",
