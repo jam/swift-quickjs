@@ -1,0 +1,17 @@
+name: Upstream Release Monitor
+
+on:
+  schedule:
+    - cron: '0 7 * * *'
+
+defaults:
+  run:
+    shell: bash --login {0}
+    
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: release-engineers/action-setup-bash@v1
+      - run: bash .github/scripts/release-check.sh
+          
