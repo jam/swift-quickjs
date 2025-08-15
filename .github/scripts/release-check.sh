@@ -23,17 +23,14 @@ unzip -o quickjs.tmp.zip -d "$CQUICKJS_PATH"
 rm quickjs.tmp.zip
 
 # Update the VERSION file with the latest tag.
-echo $LATEST_TAG > ./VERSION
+echo $LATEST_TAG > "$CQUICKJS_PATH/VERSION"
 
 # Stage and commit all changes.
 git add -A
 git commit -m "Automation: Update to QuickJS $LATEST_TAG"
 
-# Tag the commit with the latest version.
-git tag -a "$LATEST_TAG" -m "Release $LATEST_TAG"
-
-# Push the changes to the repository, including the new tag.
-git push origin main --tags
+# Push the changes to the repository (no automatic tagging for now).
+git push origin main
 
 if [ $? -eq 0 ]; then
     echo "Successfully updated to QuickJS $LATEST_TAG and pushed changes."
