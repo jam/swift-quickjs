@@ -4,6 +4,7 @@ import PackageDescription
 
 let package = Package(
     name: "swift-quickjs",
+    platforms: [.macOS(.v12)],
     products: [
         .library(
             name: "CQuickJS",
@@ -14,6 +15,9 @@ let package = Package(
             targets: ["QuickJSKit"]
         )
     ],
+    dependencies: [
+        .package(url: "https://github.com/SimplyDanny/SwiftLintPlugins", from: "0.50.0")
+    ],
     targets: [
         .target(
             name: "CQuickJS",
@@ -22,7 +26,8 @@ let package = Package(
         ),
         .target(
             name: "QuickJSKit",
-            dependencies: ["CQuickJS"]
+            dependencies: ["CQuickJS"],
+            plugins: [.plugin(name: "SwiftLintBuildToolPlugin", package: "SwiftLintPlugins")]
         ),
         .testTarget(
             name: "CQuickJSTests",

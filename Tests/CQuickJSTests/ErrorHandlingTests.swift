@@ -19,6 +19,6 @@ struct ErrorHandlingTests {
         
         let exception = JS_GetException(context)
         defer { JS_FreeValue(context, exception) }
-        #expect(!JS_IsNull(exception))
+        #expect(JS_IsNull(exception) == false)
     }
 }

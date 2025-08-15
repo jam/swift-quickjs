@@ -48,11 +48,11 @@ struct QuickJSKitTests {
         
         let numberValue = try context.evaluate("42")
         #expect(numberValue.isNumber)
-        #expect(!numberValue.isString)
+        #expect(numberValue.isString == false)
         
         let stringValue = try context.evaluate("'test'")
         #expect(stringValue.isString)
-        #expect(!stringValue.isNumber)
+        #expect(stringValue.isNumber == false)
         
         let boolValue = try context.evaluate("true")
         #expect(boolValue.isBool)

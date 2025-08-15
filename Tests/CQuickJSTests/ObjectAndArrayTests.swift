@@ -15,7 +15,7 @@ struct ObjectAndArrayTests {
         let result = JS_Eval(context, code, code.utf8.count, "<eval>", 0)
         defer { JS_FreeValue(context, result) }
         
-        #expect(!JS_IsException(result))
+        #expect(JS_IsException(result) == false)
         #expect(JS_IsArray(result))
         
         let lengthProp = JS_GetPropertyStr(context, result, "length")
@@ -42,7 +42,7 @@ struct ObjectAndArrayTests {
         let result = JS_Eval(context, code, code.utf8.count, "<eval>", 0)
         defer { JS_FreeValue(context, result) }
         
-        #expect(!JS_IsException(result))
+        #expect(JS_IsException(result) == false)
         #expect(JS_IsObject(result))
         
         let nameProp = JS_GetPropertyStr(context, result, "name")

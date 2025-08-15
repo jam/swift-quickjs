@@ -15,7 +15,7 @@ struct ValueEvaluationTests {
         let result = JS_Eval(context, code, code.utf8.count, "<eval>", 0)
         defer { JS_FreeValue(context, result) }
         
-        #expect(!JS_IsException(result))
+        #expect(JS_IsException(result) == false)
         #expect(JS_IsNumber(result))
         
         var val: Double = 0
@@ -34,7 +34,7 @@ struct ValueEvaluationTests {
         let result = JS_Eval(context, code, code.utf8.count, "<eval>", 0)
         defer { JS_FreeValue(context, result) }
         
-        #expect(!JS_IsException(result))
+        #expect(JS_IsException(result) == false)
         #expect(JS_IsString(result))
         
         let cString = JS_ToCString(context, result)
@@ -55,14 +55,14 @@ struct ValueEvaluationTests {
         let trueCode = "true"
         let trueResult = JS_Eval(context, trueCode, trueCode.utf8.count, "<eval>", 0)
         defer { JS_FreeValue(context, trueResult) }
-        #expect(!JS_IsException(trueResult))
+        #expect(JS_IsException(trueResult) == false)
         #expect(JS_IsBool(trueResult))
         #expect(JS_ToBool(context, trueResult) == 1)
         
         let falseCode = "false"
         let falseResult = JS_Eval(context, falseCode, falseCode.utf8.count, "<eval>", 0)
         defer { JS_FreeValue(context, falseResult) }
-        #expect(!JS_IsException(falseResult))
+        #expect(JS_IsException(falseResult) == false)
         #expect(JS_IsBool(falseResult))
         #expect(JS_ToBool(context, falseResult) == 0)
     }
@@ -96,7 +96,7 @@ struct ValueEvaluationTests {
         let result = JS_Eval(context, code, code.utf8.count, "<eval>", 0)
         defer { JS_FreeValue(context, result) }
         
-        #expect(!JS_IsException(result))
+        #expect(JS_IsException(result) == false)
         #expect(JS_IsNumber(result))
         
         var val: Double = 0
@@ -124,7 +124,7 @@ struct ValueEvaluationTests {
         let result = JS_Eval(context, code, code.utf8.count, "<eval>", 0)
         defer { JS_FreeValue(context, result) }
         
-        #expect(!JS_IsException(result))
+        #expect(JS_IsException(result) == false)
         #expect(JS_IsNumber(result))
         
         var val: Double = 0
