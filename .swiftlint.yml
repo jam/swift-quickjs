@@ -1,13 +1,33 @@
 excluded:
   - Sources/CQuickJS  # Exclude C source files
   - .build
+  - Package.swift  # Package manifest can be verbose
 
-# Enable rules for clarity
+# Enable rules for safety, clarity, and maintainability
 opt_in_rules:
+  # Safety & Error Prevention
   - explicit_enum_raw_value
   - explicit_init
   - explicit_top_level_acl
   - explicit_type_interface
+  - force_unwrapping
+  - implicitly_unwrapped_optional
+  - fatal_error_message
+  - unavailable_function
+  
+  # Code Quality & Clarity
+  - closure_spacing
+  - empty_count
+  - empty_string
+  - first_where
+  - last_where
+  - contains_over_first_not_nil
+  - contains_over_filter_count
+  - contains_over_filter_is_empty
+  - reduce_boolean
+  - sorted_first_last
+  
+  # Consistency & Style
   - multiline_arguments
   - multiline_function_chains
   - multiline_literal_brackets
@@ -18,18 +38,80 @@ opt_in_rules:
   - switch_case_on_newline
   - unneeded_parentheses_in_closure_argument
   - vertical_parameter_alignment_on_call
+  - vertical_whitespace_closing_braces
+  - vertical_whitespace_opening_braces
+  
+  # Documentation & API Design
+  - missing_docs
+  - orphaned_doc_comment
+  - valid_ibinspectable
+  
+  # Modern Swift Features
+  - discarded_notification_center_observer
+  - notification_center_detachment
+  - unused_declaration
+  - unused_import
 
-# Configure specific rules
+# Configure specific rules - treat warnings as errors for strict enforcement
 toggle_bool:
   severity: error
-  
-# Disable rules that conflict with our preferences  
+
+force_unwrapping:
+  severity: error
+
+implicitly_unwrapped_optional:
+  severity: error
+
+missing_docs:
+  severity: error
+  # Only require docs for public APIs
+  excludes_extensions: true
+  excludes_inherited_types: true
+
+# Treat most warnings as errors to prevent them from being missed
+warning_threshold: 0
+
+# Disable rules that conflict with our preferences or library needs
 disabled_rules:
-  - line_length  # We'll let formatter handle this
+  - line_length  # We'll configure this separately
   - function_body_length  # Sometimes longer functions are clearer
   - type_body_length  # Sometimes needed for comprehensive types
+  - todo  # TODOs are fine during development
+  - file_length  # Some files legitimately need to be long
 
-# Custom configuration
+# Custom length configurations
 line_length: 120
-function_body_length: 60
-type_body_length: 300
+function_body_length: 
+  warning: 60
+  error: 100
+type_body_length: 
+  warning: 300
+  error: 500
+file_length:
+  warning: 500
+  error: 1000
+
+# Naming conventions
+identifier_name:
+  min_length: 2
+  max_length: 60
+  excluded:
+    - id
+    - js  # Common in JS interop
+    - ok
+    - x
+    - y
+    - z
+
+type_name:
+  min_length: 3
+  max_length: 40
+
+# Complexity limits
+cyclomatic_complexity:
+  warning: 10
+  error: 20
+
+nesting:
+  type_level: 3
+  function_level: 5
