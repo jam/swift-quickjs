@@ -2,6 +2,7 @@
 
 LATEST_TAG=$(git ls-remote --refs --sort="version:refname" --tags https://github.com/quickjs-ng/quickjs.git | cut -d/ -f3-|tail -n1)
 CURRENT_TAG=$(git describe --tags --abbrev=0 2>/dev/null)
+CQUICKJS_PATH="Sources/CQuickJS"
 
 # Compare the latest release to the current tag in the repository.
 if [ "$LATEST_TAG" != "$CURRENT_TAG" ]; then
@@ -11,14 +12,14 @@ else
     exit 0
 fi
 
-# Get rid if the old source code.
-rm -rf Sources && mkdir Sources
+# Get rid of the old QuickJS source code but preserve directory structure.
+rm -rf "$CQUICKJS_PATH" && mkdir -p "$CQUICKJS_PATH"
 
 # Fetch the amalgamted source code from the latest release.
 curl -o quickjs.tmp.zip -L "https://github.com/quickjs-ng/quickjs/releases/download/$LATEST_TAG/quickjs-amalgam.zip"
 
 # Extract the source code.
-unzip -o quickjs.tmp.zip -d Sources
+unzip -o quickjs.tmp.zip -d "$CQUICKJS_PATH"
 rm quickjs.tmp.zip
 
 # Update the VERSION file with the latest tag.

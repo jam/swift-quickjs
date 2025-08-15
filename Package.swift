@@ -8,18 +8,30 @@ let package = Package(
         .library(
             name: "CQuickJS",
             targets: ["CQuickJS"]
+        ),
+        .library(
+            name: "QuickJSKit",
+            targets: ["QuickJSKit"]
         )
     ],
     targets: [
         .target(
             name: "CQuickJS",
-            path: "Sources",
+            path: "Sources/CQuickJS",
             publicHeadersPath: "."
+        ),
+        .target(
+            name: "QuickJSKit",
+            dependencies: ["CQuickJS"]
         ),
         .testTarget(
             name: "CQuickJSTests",
             dependencies: ["CQuickJS"],
-            path: "Tests"
+            path: "Tests/CQuickJSTests"
+        ),
+        .testTarget(
+            name: "QuickJSKitTests",
+            dependencies: ["QuickJSKit"]
         ),
     ]
 )
